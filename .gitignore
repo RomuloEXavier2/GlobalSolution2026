@@ -1,0 +1,71 @@
+# ====== ARQUIVOS DE SO ======
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ====== EDITORES ======
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+*.sublime-*
+
+# ====== NODE / BUILD ======
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+.npm
+.eslintcache
+.cache/
+dist/
+build/
+
+# ====== ARQUIVOS TEMPORÁRIOS ======
+*.tmp
+*.temp
+*.log
+*.bak
+.~lock.*
+~$*
+
+# ====== ARQUIVOS DE DESENVOLVIMENTO DO PROJETO ======
+# Base64 working files (já embarcados no HTML)
+_*.txt
+*_b64.txt
+
+# Versões intermediárias da logo (a versão final está no HTML)
+astreon-logo-nav.png
+astreon-logo-med.png
+astreon-logo-web.png
+
+# Scripts de build (não pertencem ao site público)
+build_*.js
+package.json
+
+# Previews de pitch deck (não pertencem ao site)
+slide-*.jpg
+slide-*.png
+_slides/
+
+# Backups e versões antigas
+*_old.*
+*_backup.*
+*.orig
+
+# ====== SEGREDOS (NUNCA COMITAR) ======
+.env
+.env.*
+*.pem
+*.key
+secrets.json
+credentials.json

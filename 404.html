@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 · Astreon · Rota desconhecida</title>
+<style>
+:root{
+  --bg:#000308;
+  --bg-1:#050B18;
+  --silver:#C8D0E0;
+  --silver-2:#8A95A8;
+  --chrome:#E8EDF5;
+  --amber:#F5A623;
+  --text:#D8DEE9;
+  --text-dim:#7B8497;
+  --line:#1E2D4D;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;}
+body{
+  font-family:"Inter","Helvetica Neue",system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  -webkit-font-smoothing:antialiased;
+}
+.bg{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(180deg,rgba(0,3,8,0.7) 0%,rgba(0,3,8,0.95) 100%),
+    url('https://images.pexels.com/photos/957004/milky-way-starry-sky-night-sky-star-957004.jpeg?auto=compress&cs=tinysrgb&w=1920');
+  background-size:cover;
+  background-position:center;
+  z-index:0;
+}
+canvas#stars{position:absolute;inset:0;z-index:1;opacity:0.6;pointer-events:none;}
+.content{
+  position:relative;
+  z-index:2;
+  text-align:center;
+  max-width:600px;
+  padding:40px 24px;
+}
+.logo-img{
+  height:clamp(120px,18vw,200px);
+  width:auto;
+  margin:0 auto 32px;
+  display:block;
+  filter:drop-shadow(0 0 24px rgba(110,150,220,0.55));
+  animation:float 6s ease-in-out infinite;
+}
+@keyframes float{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-10px);}
+}
+.code{
+  font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:clamp(80px,14vw,160px);
+  font-weight:800;
+  letter-spacing:-0.04em;
+  line-height:1;
+  background:linear-gradient(180deg,var(--amber),#D88A0F);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  margin-bottom:24px;
+}
+h1{
+  font-size:clamp(22px,3vw,32px);
+  font-weight:700;
+  color:var(--chrome);
+  letter-spacing:-0.02em;
+  margin-bottom:16px;
+  line-height:1.2;
+}
+p{
+  font-size:16px;
+  color:var(--text-dim);
+  margin-bottom:36px;
+  line-height:1.6;
+  max-width:480px;
+  margin-left:auto;
+  margin-right:auto;
+}
+.actions{
+  display:flex;
+  gap:14px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+.btn{
+  padding:14px 28px;
+  border-radius:6px;
+  font-size:13px;
+  letter-spacing:.1em;
+  font-weight:600;
+  cursor:pointer;
+  transition:all .3s cubic-bezier(.2,.7,.2,1);
+  border:1px solid transparent;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  font-family:inherit;
+}
+.btn-primary{background:var(--chrome);color:var(--bg);}
+.btn-primary:hover{background:var(--amber);transform:translateY(-2px);box-shadow:0 12px 28px rgba(245,166,35,0.25);}
+.btn-ghost{background:transparent;color:var(--chrome);border-color:var(--silver-2);}
+.btn-ghost:hover{border-color:var(--chrome);background:rgba(255,255,255,0.04);}
+.coordinates{
+  margin-top:60px;
+  font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:10px;
+  letter-spacing:.3em;
+  color:var(--text-dim);
+  opacity:0.6;
+}
+.coordinates span{color:var(--amber);}
+</style>
+</head>
+<body>
+  <div class="bg"></div>
+  <canvas id="stars"></canvas>
+
+  <main class="content">
+    <img class="logo-img" src="astreon-logo.png" alt="Astreon"
+         onerror="this.style.display='none'">
+
+    <div class="code">404</div>
+    <h1>Rota desconhecida.</h1>
+    <p>Você navegou para uma região não mapeada do nosso sistema. Talvez essa página tenha sido reconfigurada, ou as coordenadas foram digitadas com algum desvio.</p>
+
+    <div class="actions">
+      <a href="./" class="btn btn-primary">Voltar à base ←</a>
+      <a href="mailto:contact@astreon.space" class="btn btn-ghost">Reportar problema</a>
+    </div>
+
+    <div class="coordinates">
+      LAT: <span>0°00'00"</span> · LONG: <span>0°00'00"</span> · STATUS: <span>SIGNAL LOST</span>
+    </div>
+  </main>
+
+<script>
+(function(){
+  const canvas = document.getElementById('stars');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let w, h, stars = [];
+  function resize(){
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+    stars = [];
+    const count = Math.floor((w*h)/9000);
+    for(let i=0; i<count; i++){
+      stars.push({
+        x: Math.random()*w,
+        y: Math.random()*h,
+        r: Math.random()*1.1 + 0.2,
+        a: Math.random()*0.7 + 0.2
+      });
+    }
+  }
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    stars.forEach(s => {
+      s.a += (Math.random()-0.5)*0.02;
+      s.a = Math.max(0.2, Math.min(0.9, s.a));
+      ctx.fillStyle = 'rgba(232,237,245,' + s.a + ')';
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  resize();
+  draw();
+  window.addEventListener('resize', resize);
+})();
+</script>
+</body>
+</html>
